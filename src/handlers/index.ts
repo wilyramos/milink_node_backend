@@ -3,6 +3,7 @@ import slug from "slugify";
 import User from "../models/User";
 import { hashPassword, comparePasswords } from "../utils/auth";
 import { validationResult } from "express-validator";
+import { createToken } from "../utils/jwt";
 
 export const createUser = async (req: Request, res: Response) => {
 
@@ -42,7 +43,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     try {
         await user.save();
-        res.status(201).json(user);
+        res.status(201).json({message: "User created successfully"});
     } catch (error) {
         res.status(400).json({error: error.message });
     }
@@ -69,5 +70,10 @@ export const login = async (req: Request, res: Response) => {
         res.status(401).json({error: error.message });
         return;
     }
-    res.status(200).json(user);
+
+    // generate JWT
+
+    const token = createToken({id: user._id});
+    res.send(token);
+    
 }
