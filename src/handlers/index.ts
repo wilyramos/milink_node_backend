@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import slug from "slugify";
+import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { hashPassword, comparePasswords } from "../utils/auth";
 import { validationResult } from "express-validator";
@@ -76,4 +77,8 @@ export const login = async (req: Request, res: Response) => {
     const token = createToken({id: user._id});
     res.send(token);
     
+}
+
+export const getUser = async (req: Request, res: Response) => {
+    res.json(req.user);
 }
