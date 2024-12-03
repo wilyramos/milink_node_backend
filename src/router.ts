@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createUser, getUser, login } from './handlers';
+import { createUser, getUser, login, updateProfile, uploadImage } from './handlers';
 import { body } from 'express-validator';
 import { handleInputErrors } from './middleware/validation';
 import { authenticate } from './middleware/auth';
@@ -34,6 +34,18 @@ router.post('/auth/login',
     login 
 );
 
-router.get('/user',authenticate, getUser);
+router.get('/user',authenticate, getUser); // get user data
+router.patch('/user', 
+    body('handle')
+        .notEmpty()
+        .withMessage('Handle is required'),
+    handleInputErrors,
+    authenticate, 
+    updateProfile
+); // update user data
+
+// upload image
+
+router.post('/user/image', authenticate, uploadImage);
 
 export default router;
