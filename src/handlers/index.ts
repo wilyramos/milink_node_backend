@@ -88,7 +88,7 @@ export const getUser = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
 
     try {
-        const { description } = req.body;
+        const { description, links } = req.body;
 
         const handle = slug(req.body.handle, "");
         const handleExists = await User.findOne({ handle });
@@ -102,7 +102,8 @@ export const updateProfile = async (req: Request, res: Response) => {
 
         req.user.description = description;
         req.user.handle = handle;
-
+        req.user.links = links;
+        
         await req.user.save();
         res.send( "Profile updated successfully" );
 
@@ -115,17 +116,18 @@ export const uploadImage = async (req: Request, res: Response) => {
     const form = formidable({ multiples: false }); // create a new formidable form and set the multiples option to true
     try {
         form.parse(req, (error, fields, files) => {
-           cloudinary.uploader.upload(files.file[0].filepath, { public_id: uuid() }, async function (error, result) {
-                if(error) {
-                    const error = new Error("Error uploading image");
-                    res.status(400).json({ error: error.message });
-                }
-                if(result){
-                    req.user.image = result.secure_url;
-                    await req.user.save();
-                    res.json({ image: result.secure_url});
-                }
-           })       
+           cloudinary.uploader.upload(files.file[0].filepath, { public_id: uuid() }, 
+                async function (error, result) {
+                        if(error) {
+                            const error = new Error("Error uploading image");
+                            res.status(400).json({ error: error.message });
+                        }
+                        if(result){
+                            req.user.image = result.secure_url;
+                            await req.user.save();
+                            res.json({ image: result.secure_url});
+                        }
+                })       
         });
         
     } catch (e) {
@@ -133,4 +135,22 @@ export const uploadImage = async (req: Request, res: Response) => {
         res.status(400).json({ error: error.message });
     }
     // upload image to cloudinary
+}
+
+
+export const getUserByHandle = async (req: Request, res: Response) => {
+    
+    try{
+        const { handle } = req.params;
+        const user = await User.findOne({ handle }).select("-password -email  -__v -_id");
+
+        if (!user) {
+            const error = new Error("User not found");
+            res.status(404).json({ error: error.message });
+            return;
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 }

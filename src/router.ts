@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { createUser, getUser, login, updateProfile, uploadImage } from './handlers';
+import { createUser, getUser, login, updateProfile, uploadImage, getUserByHandle } from './handlers';
 import { body } from 'express-validator';
 import { handleInputErrors } from './middleware/validation';
 import { authenticate } from './middleware/auth';
+
 
 const router = Router();
 
@@ -47,5 +48,8 @@ router.patch('/user',
 // upload image
 
 router.post('/user/image', authenticate, uploadImage);
+
+// get user by handle
+router.get('/:handle', getUserByHandle);
 
 export default router;
