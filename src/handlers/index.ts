@@ -35,8 +35,6 @@ export const createUser = async (req: Request, res: Response) => {
         return;
     }
 
-    console.log(handle);
-
     const user = new User(req.body);
 
     // hash password
@@ -46,7 +44,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     try {
         await user.save();
-        res.status(201).json({ message: "User created successfully" });
+        res.status(201).json("User created successfully" );
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -150,6 +148,21 @@ export const getUserByHandle = async (req: Request, res: Response) => {
             return;
         }
         res.json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export const searchByHandle = async (req: Request, res: Response) => {
+    try {
+        const { handle } = req.body;
+        const userExists = await User.findOne({ handle })
+        if(userExists){
+            res.status(409).json({ error: "Handle already exists" });
+            return;
+            
+        }
+        res.send(`${handle} is available`);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
