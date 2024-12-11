@@ -1,37 +1,36 @@
 # **DevTree**
 
-**Mis Enlaces** es una aplicación full-stack que permite gestionar usuarios, autenticar mediante JWT, y subir imágenes a la nube con Cloudinary. Está construida con un backend en Node.js (Express) y un frontend en React (TypeScript), con MongoDB como base de datos.
+**My Links** is a full-stack application that allows you to manage users, authenticate using JWT, and upload images to the cloud with Cloudinary. It is built with a Node.js (Express) backend and a React (TypeScript) frontend, with MongoDB as the database.
 
-## **Características**
+## **Features**
 
 - **Backend**:
-  - API RESTful creada con Node.js y Express.
-  - Autenticación mediante JWT.
-  - Almacenamiento de usuarios y datos utilizando MongoDB (Mongoose).
-  - Subida de imágenes a Cloudinary.
-  - Middleware para proteger rutas con JWT.
+- RESTful API built with Node.js and Express.
+- Authentication using JWT.
+- User and data storage using MongoDB (Mongoose).
+- Image upload to Cloudinary.
+- Middleware to protect routes with JWT.
 
-## **Estructura del Proyecto**
+## **Project Structure**
 
 ### **Backend**
-- **index.js**: Archivo principal del servidor.
-- **/src/models**: Modelos de datos (User, etc.).
-- **/src/routes**: Rutas de la API (autenticación, usuario, etc.).
-- **/src/controllers**: Lógica para manejar las solicitudes.
-- **/src/middleware**: Middleware para autenticación y validación.
-- **/src/config**: Archivos de configuración (MongoDB, Cloudinary, etc.).
+- **index.js**: Main server file.
+- **/src/models**: Data models (User, etc.).
+- **/src/routes**: API routes (authentication, user, etc.).
+- **/src/controllers**: Logic to handle requests.
+- **/src/middleware**: Middleware for authentication and validation.
+- **/src/config**: Configuration files (MongoDB, Cloudinary, etc.).
 
-## **Instalación**
+## **Installation**
 
-### **Requisitos Previos**
+### **Prerequisites**
 
-1. Tener instalado **Node.js** y **npm**.
-2. Tener una cuenta en **MongoDB** y **Cloudinary** para las configuraciones de base de datos y gestión de imágenes.
-
+1. Have **Node.js** and **npm** installed.
+2. Have an account on **MongoDB** and **Cloudinary** for database configurations and image management.
 
 #### **Backend**
 
-1. Clona el repositorio:
-   ```bash
-   git clone <url-del-repositorio>
-   cd backend
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd backend
