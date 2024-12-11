@@ -1,4 +1,4 @@
-# **DevTree**
+# **My Links**
 
 **My Links** is a full-stack application that allows you to manage users, authenticate using JWT, and upload images to the cloud with Cloudinary. It is built with a Node.js (Express) backend and a React (TypeScript) frontend, with MongoDB as the database.
 
